@@ -1,8 +1,10 @@
 import './App.css';
+import Flow from './views/Flow';
 
 function App() {
   return (
     <div className="App">
+      <Flow />
     </div>
   );
 }

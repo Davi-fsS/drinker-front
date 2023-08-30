@@ -1,0 +1,15 @@
+.button {
+    margin-top: 3vh;
+    background-color: #FC9B08;
+    color: #FFFFFF;
+    border: none;
+    font-size: 15px;
+    padding: 2.5vh 5vw;
+    border-radius: 1rem;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.button:hover {
+    transform: scale(1.05);
+}

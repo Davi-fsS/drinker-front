@@ -1,0 +1,26 @@
+.position {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: inherit;
+    gap: 0rem 20rem;
+    flex-wrap: wrap;
+}
+
+.dose-content {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.dose-content .dose-field {
+    width: 30%;
+}
+
+.dose-content .dose-field input {
+    width: 30%;
+}
+
+.dose-content p {
+    margin: 0;
+}
