@@ -59,6 +59,12 @@ const Flow = () => {
     const [lessDoseA, setLessDoseA] = useState(false);
     const [lessDoseB, setLessDoseB] = useState(false);
 
+    const [orderConfirmation, setOrderConfirmation] = useState(false);
+
+    const [doingDrink, setDoingDrink] = useState(false);
+
+    const [error, setError] = useState(null);
+
     useEffect(() => {
 
         setTimeout(() => {
@@ -140,6 +146,30 @@ const Flow = () => {
         setDrinkDetail(null);
     };
 
+    const makeOrder = async () => {
+        setDoingDrink(true);
+
+        setTimeout(() => {
+            setDoingDrink(false);
+        }, 3000);
+        //chamar api para chamada
+
+        // setError("Não possuímos doses suficientes de (bebida).");
+        setOrderConfirmation(true);
+    };
+
+    const goToMenu = () => {
+        setOrderConfirmation(false);
+        setIsOpenDetail(false);
+    };
+
+    const leave = () => {
+        setOrderConfirmation(false);
+        setIsOpenDetail(false);
+        setIsSystemStarted(false);
+        setIsCardRead(false);
+    };
+
     return <div className="position">
         {
             !isCardRead ?
@@ -165,43 +195,66 @@ const Flow = () => {
                             </DrinkCard>
                         })
                         :
-                        drinkDetail.map((value) => {
-                            return <Card>
-                                <h2>{value.name}</h2>
-                                <i>{value.description}</i>
-                                <p>R$ {value.price}</p>
-                                <div>
-                                    {
-                                        !onlyOneDrink && <>
-                                            <p>Escolha a proporção de doses na sua bebida</p>
-                                            <div className="dose-content">
-                                                <div className="dose-field">
-                                                    <button onClick={() => setLessDoseA(true)}>-</button>
-                                                    <input type="number" value={qtdDoseA} />
-                                                    <button onClick={() => setAddDoseA(true)}>+</button>
+                        !orderConfirmation ?
+                            drinkDetail.map((value) => {
+                                return <Card>
+                                    <h2>{value.name}</h2>
+                                    <i>{value.description}</i>
+                                    <p>R$ {value.price}</p>
+                                    <div>
+                                        {
+                                            !onlyOneDrink && <>
+                                                <p>Escolha a proporção de doses na sua bebida</p>
+                                                <div className="dose-content">
+                                                    <div className="dose-field">
+                                                        <button onClick={() => setLessDoseA(true)}>-</button>
+                                                        <input type="number" value={qtdDoseA} />
+                                                        <button onClick={() => setAddDoseA(true)}>+</button>
+                                                    </div>
+                                                    <p>{value.doseA}</p>
                                                 </div>
-                                                <p>{value.doseA}</p>
-                                            </div>
 
-                                            <div className="dose-content">
-                                                <div className="dose-field">
-                                                    <button onClick={() => setLessDoseB(true)}>-</button>
-                                                    <input type="number" value={qtdDoseB} />
-                                                    <button onClick={() => setAddDoseB(true)}>+</button>
+                                                <div className="dose-content">
+                                                    <div className="dose-field">
+                                                        <button onClick={() => setLessDoseB(true)}>-</button>
+                                                        <input type="number" value={qtdDoseB} />
+                                                        <button onClick={() => setAddDoseB(true)}>+</button>
+                                                    </div>
+                                                    <p>{value.doseB}</p>
                                                 </div>
-                                                <p>{value.doseB}</p>
-                                            </div>
-                                        </>
-                                    }
+                                            </>
+                                        }
 
-                                </div>
-                                <div className="buttons">
-                                    <Button color="white" onClick={backToDrinksPage}>Voltar</Button>
-                                    <Button onClick={() => alert('fazer bebida')}>Pedir</Button>
-                                </div>
-                            </Card>
-                        })
+                                    </div>
+                                    <div className="buttons">
+                                        <Button color="white" onClick={backToDrinksPage}>Voltar</Button>
+                                        <Button onClick={makeOrder}>Pedir</Button>
+                                    </div>
+                                </Card>
+                            })
+                            :
+                            doingDrink ?
+                                error ?
+                                    <Card>
+                                        <h1>{error}</h1>
+                                        <Button onClick={goToMenu}>Voltar</Button>
+                                    </Card>
+                                    :
+                                    <Card>
+                                        <h2>Preparando sua bebida, aguarde alguns instantes</h2>
 
+                                        <span>adicionar animacao aqui</span>
+                                    </Card>
+                                : <Card>
+                                    <h2>Bebida finalizada</h2>
+                                    <h3>Aproveite seu drink!</h3>
+                                    <h3>Tire sua foto e nos marque no instagram: @rubio</h3>
+
+                                    <div className="buttons">
+                                        <Button color="white" onClick={leave}>Sair</Button>
+                                        <Button onClick={goToMenu}>Continuar</Button>
+                                    </div>
+                                </Card>
         }
 
     </div>
