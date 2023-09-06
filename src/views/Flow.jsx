@@ -72,7 +72,7 @@ const Flow = () => {
             setIsCardRead(true);
         }, 4000);
 
-    }, []);
+    }, [isCardRead]);
 
     const initializingSystem = () => {
         setIsSystemStarted(true);
