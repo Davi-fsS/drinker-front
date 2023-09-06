@@ -49,6 +49,8 @@ const Flow = () => {
     const [isSystemStarted, setIsSystemStarted] = useState(false);
     const [isOpenDetail, setIsOpenDetail] = useState(false);
 
+    const [onlyOneDrink, setOnlyOneDrink] = useState(false);
+
     const [qtdDoseA, setQtdDoseA] = useState(null);
     const [qtdDoseB, setQtdDoseB] = useState(null);
 
@@ -74,8 +76,15 @@ const Flow = () => {
         const getDetailById = getAllByIdMock.filter(value => value.id === id);
         setIsOpenDetail(true);
         setDrinkDetail(getDetailById);
-        setQtdDoseA(getDetailById[0].qtdA);
-        setQtdDoseB(getDetailById[0].qtdB);
+        setQtdDoseA(getDetailById[0]?.qtdA);
+        setQtdDoseB(getDetailById[0]?.qtdB);
+
+        if (getDetailById[0]?.doseA === getDetailById[0]?.doseB) {
+            setOnlyOneDrink(true);
+        }
+        else {
+            setOnlyOneDrink(false);
+        }
     };
 
     useEffect(() => {
@@ -162,24 +171,29 @@ const Flow = () => {
                                 <i>{value.description}</i>
                                 <p>R$ {value.price}</p>
                                 <div>
-                                    <p>Escolha a proporção de doses na sua bebida</p>
-                                    <div className="dose-content">
-                                        <div className="dose-field">
-                                            <button onClick={() => setLessDoseA(true)}>-</button>
-                                            <input type="number" value={qtdDoseA} />
-                                            <button onClick={() => setAddDoseA(true)}>+</button>
-                                        </div>
-                                        <p>{value.doseA}</p>
-                                    </div>
+                                    {
+                                        !onlyOneDrink && <>
+                                            <p>Escolha a proporção de doses na sua bebida</p>
+                                            <div className="dose-content">
+                                                <div className="dose-field">
+                                                    <button onClick={() => setLessDoseA(true)}>-</button>
+                                                    <input type="number" value={qtdDoseA} />
+                                                    <button onClick={() => setAddDoseA(true)}>+</button>
+                                                </div>
+                                                <p>{value.doseA}</p>
+                                            </div>
 
-                                    <div className="dose-content">
-                                        <div className="dose-field">
-                                            <button onClick={() => setLessDoseB(true)}>-</button>
-                                            <input type="number" value={qtdDoseB} />
-                                            <button onClick={() => setAddDoseB(true)}>+</button>
-                                        </div>
-                                        <p>{value.doseB}</p>
-                                    </div>
+                                            <div className="dose-content">
+                                                <div className="dose-field">
+                                                    <button onClick={() => setLessDoseB(true)}>-</button>
+                                                    <input type="number" value={qtdDoseB} />
+                                                    <button onClick={() => setAddDoseB(true)}>+</button>
+                                                </div>
+                                                <p>{value.doseB}</p>
+                                            </div>
+                                        </>
+                                    }
+
                                 </div>
                                 <div className="buttons">
                                     <Button color="white" onClick={backToDrinksPage}>Voltar</Button>
