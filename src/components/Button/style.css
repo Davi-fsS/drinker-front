@@ -3,9 +3,10 @@
     background-color: #FC9B08;
     color: #FFFFFF;
     border: none;
-    font-size: 15px;
+    font-size: 18px;
     padding: 2.5vh 5vw;
     border-radius: 1rem;
+    font-weight: bold;
     transition: all 0.2s ease-in-out;
     cursor: pointer;
 }

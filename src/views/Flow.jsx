@@ -146,7 +146,10 @@ const Flow = () => {
                                         <p>{value.doseB}</p>
                                     </div>
                                 </div>
-                                <Button onClick={backToDrinksPage}>Voltar</Button>
+                                <div className="buttons">
+                                    <Button color="white" onClick={backToDrinksPage}>Voltar</Button>
+                                    <Button onClick={() => alert('fazer bebida')}>Pedir</Button>
+                                </div>
                             </Card>
                         })
 
