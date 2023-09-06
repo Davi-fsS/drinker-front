@@ -63,7 +63,8 @@ const Flow = () => {
 
     const [doingDrink, setDoingDrink] = useState(false);
 
-    const [error, setError] = useState(null);
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(null);
 
     useEffect(() => {
 
@@ -154,7 +155,8 @@ const Flow = () => {
         }, 3000);
         //chamar api para chamada
 
-        // setError("Não possuímos doses suficientes de (bebida).");
+        // setError(true);
+        // setErrorMessage("Não possuímos doses suficientes de (bebida).")
         setOrderConfirmation(true);
     };
 
@@ -236,7 +238,7 @@ const Flow = () => {
                             doingDrink ?
                                 error ?
                                     <Card>
-                                        <h1>{error}</h1>
+                                        <h1>{errorMessage}</h1>
                                         <Button onClick={goToMenu}>Voltar</Button>
                                     </Card>
                                     :
