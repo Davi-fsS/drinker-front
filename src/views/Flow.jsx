@@ -52,6 +52,11 @@ const Flow = () => {
     const [qtdDoseA, setQtdDoseA] = useState(null);
     const [qtdDoseB, setQtdDoseB] = useState(null);
 
+    const [addDoseA, setAddDoseA] = useState(false);
+    const [addDoseB, setAddDoseB] = useState(false);
+    const [lessDoseA, setLessDoseA] = useState(false);
+    const [lessDoseB, setLessDoseB] = useState(false);
+
     useEffect(() => {
 
         setTimeout(() => {
@@ -73,23 +78,53 @@ const Flow = () => {
         setQtdDoseB(getDetailById[0].qtdB);
     };
 
-    const handleDosesMinus = (dose) => {
-        if (dose === 'A') {
-            setQtdDoseA(qtdDoseA - 1);
-        }
-        else {
-            setQtdDoseB(qtdDoseB - 1);
-        }
-    };
+    useEffect(() => {
+        if (qtdDoseB > 1 && qtdDoseA > 1) {
+            if (addDoseA) {
+                setQtdDoseA(qtdDoseA + 1);
+                setQtdDoseB(qtdDoseB - 1);
 
-    const handleDosesMore = (dose) => {
-        if (dose === 'A') {
-            setQtdDoseA(qtdDoseA + 1);
+            }
+            if (addDoseB) {
+                setQtdDoseB(qtdDoseB + 1);
+                setQtdDoseA(qtdDoseA - 1);
+
+            }
+            if (lessDoseA) {
+                setQtdDoseA(qtdDoseA - 1);
+                setQtdDoseB(qtdDoseB + 1);
+            }
+            if (lessDoseB) {
+                setQtdDoseB(qtdDoseB - 1);
+                setQtdDoseA(qtdDoseA + 1);
+            }
         }
-        else {
-            setQtdDoseB(qtdDoseB + 1);
+        else if (qtdDoseA === 1) {
+            if (addDoseA) {
+                setQtdDoseA(qtdDoseA + 1);
+                setQtdDoseB(qtdDoseB - 1);
+            }
+            if (lessDoseB) {
+                setQtdDoseB(qtdDoseB - 1);
+                setQtdDoseA(qtdDoseA + 1);
+            }
         }
-    };
+        else if (qtdDoseB === 1) {
+            if (addDoseB) {
+                setQtdDoseB(qtdDoseB + 1);
+                setQtdDoseA(qtdDoseA - 1);
+            }
+            if (lessDoseA) {
+                setQtdDoseA(qtdDoseA - 1);
+                setQtdDoseB(qtdDoseB + 1);
+            }
+        }
+
+        setAddDoseA(false);
+        setAddDoseB(false);
+        setLessDoseA(false);
+        setLessDoseB(false);
+    }, [addDoseA, addDoseB, lessDoseA, lessDoseB, qtdDoseA, qtdDoseB]);
 
     const backToDrinksPage = () => {
         setIsOpenDetail(false);
@@ -130,18 +165,18 @@ const Flow = () => {
                                     <p>Escolha a proporção de doses na sua bebida</p>
                                     <div className="dose-content">
                                         <div className="dose-field">
-                                            <button onClick={() => handleDosesMinus('A')}>-</button>
+                                            <button onClick={() => setLessDoseA(true)}>-</button>
                                             <input type="number" value={qtdDoseA} />
-                                            <button onClick={() => handleDosesMore('A')}>+</button>
+                                            <button onClick={() => setAddDoseA(true)}>+</button>
                                         </div>
                                         <p>{value.doseA}</p>
                                     </div>
 
                                     <div className="dose-content">
                                         <div className="dose-field">
-                                            <button onClick={() => handleDosesMinus('B')}>-</button>
+                                            <button onClick={() => setLessDoseB(true)}>-</button>
                                             <input type="number" value={qtdDoseB} />
-                                            <button onClick={() => handleDosesMore('B')}>+</button>
+                                            <button onClick={() => setAddDoseB(true)}>+</button>
                                         </div>
                                         <p>{value.doseB}</p>
                                     </div>
