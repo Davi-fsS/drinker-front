@@ -209,18 +209,18 @@ const Flow = () => {
                                                 <p>Escolha a proporção de doses na sua bebida</p>
                                                 <div className="dose-content">
                                                     <div className="dose-field">
-                                                        <button onClick={() => setLessDoseA(true)}>-</button>
-                                                        <input type="number" value={qtdDoseA} />
-                                                        <button onClick={() => setAddDoseA(true)}>+</button>
+                                                        <button className="doses-button" onClick={() => setLessDoseA(true)}>-</button>
+                                                        <p>{qtdDoseA}</p>
+                                                        <button className="doses-button" onClick={() => setAddDoseA(true)}>+</button>
                                                     </div>
                                                     <p>{value.doseA}</p>
                                                 </div>
 
                                                 <div className="dose-content">
                                                     <div className="dose-field">
-                                                        <button onClick={() => setLessDoseB(true)}>-</button>
-                                                        <input type="number" value={qtdDoseB} />
-                                                        <button onClick={() => setAddDoseB(true)}>+</button>
+                                                        <button className="doses-button" onClick={() => setLessDoseB(true)}>-</button>
+                                                        <p>{qtdDoseB}</p>
+                                                        <button className="doses-button" onClick={() => setAddDoseB(true)}>+</button>
                                                     </div>
                                                     <p>{value.doseB}</p>
                                                 </div>

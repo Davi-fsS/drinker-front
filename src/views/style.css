@@ -10,19 +10,37 @@
 .dose-content {
     display: flex;
     flex-direction: row;
-    gap: 5px;
+    gap: 25px;
+    margin-bottom: 10px;
+    align-items: center;
 }
 
 .dose-content .dose-field {
-    width: 30%;
+    width: 40%;
+    display: flex;
+    align-items: center
 }
 
-.dose-content .dose-field input {
-    width: 30%;
+.doses-button {
+    background-color: #FC9B08;
+    border: none;
+    flex: 1;
+    border-radius: 100%;
+    width: 45px;
+    height: 45px;
+    color: #fff;
+    font-size: 20px;
 }
 
 .dose-content p {
     margin: 0;
+}
+
+.dose-content .dose-field p {
+    width: 30%;
+    text-align: center;
+    border: none;
+    font-size: 18px;
 }
 
 .buttons {
